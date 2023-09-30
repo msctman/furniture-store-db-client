@@ -5,7 +5,7 @@ from cassandra.auth import PlainTextAuthProvider
 cloud_config = {
     'secure_connect_bundle': '/workspace/furniture-store-db-client/python_project/secure-connect-furnituredb.zip'
 }
-auth_provider = PlainTextAuthProvider(FEZquCKMGPBKLOhluYLdEYWp, uY_slev,e_zhEZG,U+q3QBTAADnEXbyjuqjEHRRhtcTs+PveLldNDIeo.FveH2DqXcUNlxO+uBdbjzQUopIgeohwSC88Q2.C964xLYxo6dT18nDG3NLrwyryFIxjelKE)
+auth_provider = PlainTextAuthProvider(client_id=FEZquCKMGPBKLOhluYLdEYWp, client_secret:uY_slev,e_zhEZG,U+q3QBTAADnEXbyjuqjEHRRhtcTs+PveLldNDIeo.FveH2DqXcUNlxO+uBdbjzQUopIgeohwSC88Q2.C964xLYxo6dT18nDG3NLrwyryFIxjelKE)
 
 session = cluster.connect('furniture_keyspace')
 
