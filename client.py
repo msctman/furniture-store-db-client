@@ -5,9 +5,8 @@ from cassandra.auth import PlainTextAuthProvider
 cloud_config = {
     'secure_connect_bundle': './secure-connect-furnituredb.zip'
 }
-auth_provider = PlainTextAuthProvider("clientId": "vfMxWptNmqPhTPZApJQDFgDJ",
-  "secret": "7aEMzXGdSjTs04ZuIUoXkyZWoAwwp8T0wFEA8bY3qlr+YWR01SsX.A3aZgkQeww0lZF1iqhC5BtxZT1yJGA5_zHlimOaJ_rw3We2L6oEn5v-kYP6CRuCcPJ4j.7I+DLk",
-  "token": "AstraCS:vfMxWptNmqPhTPZApJQDFgDJ:bad72138e8af1402e8554953545911f4cac3b1c8196d83c4cdd59ff3203a01dc")
+auth_provider = PlainTextAuthProvider(CLIENT_ID="vfMxWptNmqPhTPZApJQDFgDJ",
+  CLIENT_SECRET= "7aEMzXGdSjTs04ZuIUoXkyZWoAwwp8T0wFEA8bY3qlr+YWR01SsX.A3aZgkQeww0lZF1iqhC5BtxZT1yJGA5_zHlimOaJ_rw3We2L6oEn5v-kYP6CRuCcPJ4j.7I+DLk",CLIENT_TOKEN= "AstraCS:vfMxWptNmqPhTPZApJQDFgDJ:bad72138e8af1402e8554953545911f4cac3b1c8196d83c4cdd59ff3203a01dc")
 
 session = cluster.connect('furniture_keyspace')
 
