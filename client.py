@@ -6,7 +6,10 @@ cloud_config = {
     'secure_connect_bundle': './secure-connect-furnituredb.zip'
 }
 
-session = cluster.connect('furniture_keyspace')
+auth_provider = PlainTextAuthProvider(username='your-username', password='your-password')
+cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
+session = Cluster.connect('furniture_keyspace')
+
 
 def add_customer(customer_id, name, email):
     query = """
