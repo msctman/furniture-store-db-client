@@ -3,7 +3,7 @@ from cassandra.auth import PlainTextAuthProvider
 
 # Connect to your Astra DB
 cloud_config = {
-    'secure_connect_bundle': '/python_project/secure-connect-your_astra_db.zip'
+    'secure_connect_bundle': '/workspace/furniture-store-db-client/python_project/secure-connect-furnituredb.zip'
 }
 auth_provider = PlainTextAuthProvider(username='your-username', password='your-password')
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
