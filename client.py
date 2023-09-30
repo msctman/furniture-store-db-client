@@ -6,9 +6,16 @@ cloud_config = {
     'secure_connect_bundle': './secure-connect-furnituredb.zip'
 }
 
-auth_provider = PlainTextAuthProvider(username='your-username', password='your-password')
+# Corrected code snippet:
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
-session = Cluster.connect('furniture_keyspace')
+session = cluster.connect('furniture_keyspace')with open("/msctmansoor@gmail.com-token.json") as f:
+    secrets = json.load(f)
+
+CLIENT_ID = secrets["clientId"]
+CLIENT_SECRET = secrets["secret"]
+
+auth_provider = PlainTextAuthProvider(CLIENT_ID, CLIENT_SECRET)
+cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
 
 
 def add_customer(customer_id, name, email):
