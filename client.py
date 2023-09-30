@@ -8,7 +8,7 @@ cloud_config = {
 
 # Corrected code snippet:
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
-session = cluster.connect('furniture_keyspace')with open("/msctmansoor@gmail.com-token.json") as f:
+session = cluster.connect('furniture_keyspace')with open("./msctmansoor@gmail.com-token.json") as f:
     secrets = json.load(f)
 
 CLIENT_ID = secrets["clientId"]
