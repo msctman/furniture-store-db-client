@@ -1,3 +1,4 @@
+import json
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 
@@ -6,20 +7,17 @@ cloud_config = {
     'secure_connect_bundle': './secure-connect-furnituredb.zip'
 }
 
-# Corrected code snippet:
-cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
-session = cluster.connect('furniture_keyspace')
-
+# Read credentials from JSON
 with open("./msctmansoor@gmail.com-token.json") as f:
     secrets = json.load(f)
 
 CLIENT_ID = secrets["clientId"]
 CLIENT_SECRET = secrets["secret"]
 
+# Create the auth provider and cluster objects
 auth_provider = PlainTextAuthProvider(CLIENT_ID, CLIENT_SECRET)
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
-
-
+session = cluster.connect('furniture_keyspace')
 
 def add_customer(customer_id, name, email):
     query = """
