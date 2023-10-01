@@ -1,6 +1,6 @@
 # Importing necessary libraries
 import json
-import uuid #Import the uuid module
+import uuid  # Import the uuid module
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 
@@ -8,10 +8,7 @@ from cassandra.auth import PlainTextAuthProvider
 session = None
 
 def initialize_connection():
-    """
-    This function initializes the connection to the Cassandra cluster and sets the global session variable.
-    It returns the cluster connection object for later use, like shutting down the connection.
-    """
+    # This function initializes the connection to the Cassandra cluster and sets the global session variable.
     global session  # Declare session as global so it can be accessed and modified within this function
     cloud_config = {
         'secure_connect_bundle': './secure-connect-furnituredb.zip'
@@ -29,10 +26,11 @@ def initialize_connection():
     cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
     session = cluster.connect('furniture_keyspace')  # Connect to your keyspace
     return cluster  # Return the cluster connection object for later use
+
 def add_customer():
     try:
         # Automatically generate a random UUID for the new customer
-        customer_id = str(uuid.uuid4())
+        customer_id = uuid.uuid4()  # No str() conversion
         name = input("Enter Name: ")
         email = input("Enter Email: ")
         query = "INSERT INTO customers (customer_id, name, email, created_at) VALUES (%s, %s, %s, toTimeStamp(now()))"
@@ -44,7 +42,7 @@ def add_customer():
 def add_product():
     try:
         # Automatically generate a random UUID for the new product
-        product_id = str(uuid.uuid4())
+        product_id = uuid.uuid4()  # No str() conversion
         name = input("Enter Name: ")
         description = input("Enter Description: ")
         price = float(input("Enter Price: "))
@@ -58,79 +56,20 @@ def add_product():
 def add_order():
     try:
         # Automatically generate a random UUID for the new order
-        order_id = str(uuid.uuid4())
-        customer_id = input("Enter Customer ID: ")
+        order_id = uuid.uuid4()  # No str() conversion
+        customer_id = uuid.UUID(input("Enter Customer ID: "))  # Convert input string to UUID
         customer_name = input("Enter Customer Name: ")
-        product_id = input("Enter Product ID: ")
+        product_id = uuid.UUID(input("Enter Product ID: "))  # Convert input string to UUID
         product_name = input("Enter Product Name: ")
         quantity = int(input("Enter Quantity: "))
         query = "INSERT INTO orders (order_id, customer_id, customer_name, product_id, product_name, quantity, order_date) VALUES (%s, %s, %s, %s, %s, %s, toTimeStamp(now()))"
         session.execute(query, (order_id, customer_id, customer_name, product_id, product_name, quantity))
         print(f"Order added successfully with ID: {order_id}")
     except Exception as e:
-        print(f"An error occurred: {e}")    
-
-def add_customer():
-    """
-    This function prompts the user for customer details, then inserts a new customer record into the database.
-    Any errors during this process are caught and displayed.
-    """
-    try:
-        # Get user input for each field
-        customer_id = input("Enter Customer ID: ")
-        name = input("Enter Name: ")
-        email = input("Enter Email: ")
-        # Prepare and execute the CQL query
-        query = "INSERT INTO customers (customer_id, name, email, created_at) VALUES (%s, %s, %s, toTimeStamp(now()))"
-        session.execute(query, (customer_id, name, email))
-        print("Customer added successfully.")
-    except Exception as e:
-        print(f"An error occurred: {e}")  # Display any errors
-
-def add_product():
-    """
-    This function prompts the user for product details, then inserts a new product record into the database.
-    Any errors during this process are caught and displayed.
-    """
-    try:
-        # Get user input for each field
-        product_id = input("Enter Product ID: ")
-        name = input("Enter Name: ")
-        description = input("Enter Description: ")
-        price = float(input("Enter Price: "))  # Convert input to float for price
-        stock = int(input("Enter Stock: "))  # Convert input to integer for stock
-        # Prepare and execute the CQL query
-        query = "INSERT INTO products (product_id, name, description, price, stock) VALUES (%s, %s, %s, %s, %s)"
-        session.execute(query, (product_id, name, description, price, stock))
-        print("Product added successfully.")
-    except Exception as e:
-        print(f"An error occurred: {e}")  # Display any errors
-
-def add_order():
-    """
-    This function prompts the user for order details, then inserts a new order record into the database.
-    Any errors during this process are caught and displayed.
-    """
-    try:
-        # Get user input for each field
-        order_id = input("Enter Order ID: ")
-        customer_id = input("Enter Customer ID: ")
-        customer_name = input("Enter Customer Name: ")
-        product_id = input("Enter Product ID: ")
-        product_name = input("Enter Product Name: ")
-        quantity = int(input("Enter Quantity: "))  # Convert input to integer for quantity
-        # Prepare and execute the CQL query
-        query = "INSERT INTO orders (order_id, customer_id, customer_name, product_id, product_name, quantity, order_date) VALUES (%s, %s, %s, %s, %s, %s, toTimeStamp(now()))"
-        session.execute(query, (order_id, customer_id, customer_name, product_id, product_name, quantity))
-        print("Order added successfully.")
-    except Exception as e:
-        print(f"An error occurred: {e}")  # Display any errors
+        print(f"An error occurred: {e}")
 
 def fetch_all():
-    """
-    This function prompts the user for a table name, then fetches and displays all records from that table.
-    Any errors during this process are caught and displayed.
-    """
+    # This function prompts the user for a table name, then fetches and displays all records from that table.
     try:
         table_name = input("Enter table name: ")  # Get user input for table name
         query = f"SELECT * FROM {table_name}"
@@ -141,11 +80,7 @@ def fetch_all():
         print(f"An error occurred: {e}")  # Display any errors
 
 def main():
-    """
-    The main function initializes the database connection, then enters an interactive loop
-    where the user can choose different actions. It also handles shutting down the connection
-    when the user chooses to exit.
-    """
+    # The main function initializes the database connection, then enters an interactive loop.
     cluster = initialize_connection()  # Initialize the database connection
     while True:  # Enter an interactive loop
         # Display the menu options
@@ -172,3 +107,4 @@ def main():
 
 if __name__ == "__main__":
     main()  # Call the main function if this script is run as the main module
+
