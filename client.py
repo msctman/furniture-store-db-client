@@ -1,5 +1,6 @@
 # Importing necessary libraries
 import json
+import uuid #Import the uuid module
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 
@@ -28,6 +29,46 @@ def initialize_connection():
     cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
     session = cluster.connect('furniture_keyspace')  # Connect to your keyspace
     return cluster  # Return the cluster connection object for later use
+def add_customer():
+    try:
+        # Automatically generate a random UUID for the new customer
+        customer_id = str(uuid.uuid4())
+        name = input("Enter Name: ")
+        email = input("Enter Email: ")
+        query = "INSERT INTO customers (customer_id, name, email, created_at) VALUES (%s, %s, %s, toTimeStamp(now()))"
+        session.execute(query, (customer_id, name, email))
+        print(f"Customer added successfully with ID: {customer_id}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+def add_product():
+    try:
+        # Automatically generate a random UUID for the new product
+        product_id = str(uuid.uuid4())
+        name = input("Enter Name: ")
+        description = input("Enter Description: ")
+        price = float(input("Enter Price: "))
+        stock = int(input("Enter Stock: "))
+        query = "INSERT INTO products (product_id, name, description, price, stock) VALUES (%s, %s, %s, %s, %s)"
+        session.execute(query, (product_id, name, description, price, stock))
+        print(f"Product added successfully with ID: {product_id}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+def add_order():
+    try:
+        # Automatically generate a random UUID for the new order
+        order_id = str(uuid.uuid4())
+        customer_id = input("Enter Customer ID: ")
+        customer_name = input("Enter Customer Name: ")
+        product_id = input("Enter Product ID: ")
+        product_name = input("Enter Product Name: ")
+        quantity = int(input("Enter Quantity: "))
+        query = "INSERT INTO orders (order_id, customer_id, customer_name, product_id, product_name, quantity, order_date) VALUES (%s, %s, %s, %s, %s, %s, toTimeStamp(now()))"
+        session.execute(query, (order_id, customer_id, customer_name, product_id, product_name, quantity))
+        print(f"Order added successfully with ID: {order_id}")
+    except Exception as e:
+        print(f"An error occurred: {e}")    
 
 def add_customer():
     """
@@ -131,4 +172,3 @@ def main():
 
 if __name__ == "__main__":
     main()  # Call the main function if this script is run as the main module
-
