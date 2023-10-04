@@ -30,7 +30,7 @@ def initialize_connection():
 def add_customer():
     try:
         # Automatically generate a random UUID for the new customer
-        customer_id = uuid.uuid4()  # No str() conversion
+        customer_id = uuid.uuid4()  
         name = input("Enter Name: ")
         email = input("Enter Email: ")
         query = "INSERT INTO customers (customer_id, name, email, created_at) VALUES (%s, %s, %s, toTimeStamp(now()))"
@@ -42,7 +42,7 @@ def add_customer():
 def add_product():
     try:
         # Automatically generate a random UUID for the new product
-        product_id = uuid.uuid4()  # No str() conversion
+        product_id = uuid.uuid4()
         name = input("Enter Name: ")
         description = input("Enter Description: ")
         price = float(input("Enter Price: "))
@@ -56,7 +56,7 @@ def add_product():
 def add_order():
     try:
         # Automatically generate a random UUID for the new order
-        order_id = uuid.uuid4()  # No str() conversion
+        order_id = uuid.uuid4()
         customer_id = uuid.UUID(input("Enter Customer ID: "))  # Convert input string to UUID
         customer_name = input("Enter Customer Name: ")
         product_id = uuid.UUID(input("Enter Product ID: "))  # Convert input string to UUID
