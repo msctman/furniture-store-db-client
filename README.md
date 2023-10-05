@@ -1,6 +1,9 @@
 Follow the following steps to create a clone project from the main (Master)
+
 *********************** DO NOT MODIFY MASTER *******************************
--------------------------------------------------TOC-----------------------------------------------
+
+----------------------- STEP TO REPLICATE MASTER ---------------------------
+
 CREATE A DATABASE AND KEYSPACE USING
 
 CREATE NEW REPOSITORY
@@ -20,7 +23,8 @@ UPDATE THE PATH
 UPDATE KEYSPACE NAME
 
 GITPOD SETUP
--------------------------------------------------------- End TOC ---------------------------------
+
+-------------------- END ---------------------------
 
 Create a database and keyspace using:
 
