@@ -81,12 +81,6 @@ Gitpod Setup:
 
 Click on the three dots, and click Open (this will open the repo in new preferred application (VScode in this case)
 
-OR.
-
-Copy the url as follow.
-
-In your browser's address bar, type https://gitpod.io/#https://github.com/<your-username>/<your-repo>, 
-
 
 
 
